@@ -1,8 +1,3 @@
-# smartPetMonitor
-Smart Pet Monitoring I2I Project
-
-
-
 ## Audio Model 
 
 **<u>Status</u>:** 
