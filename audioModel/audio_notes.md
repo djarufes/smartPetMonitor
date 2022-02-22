@@ -1,3 +1,13 @@
+# Scripts 
+
+main.py : main where we will run the model and stuff 
+
+EDA.ipynb : EDA script for metadata and sorting 
+
+Pre-processing.ipynb : Data pre-processing 
+
+Training.ipynb : training dataset 
+
 # Resources 
 
 https://www.tensorflow.org/tutorials/audio/transfer_learning_audio 
