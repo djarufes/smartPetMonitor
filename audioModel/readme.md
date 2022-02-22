@@ -1,12 +1,12 @@
 # Scripts 
 
-main.py : main where we will run the model and stuff 
+**main.py** : main where we will run the model and stuff 
 
-EDA.ipynb : EDA script for metadata and sorting 
+**EDA.ipynb** : EDA script for metadata and sorting 
 
-Pre-processing.ipynb : Data pre-processing 
+**Pre-processing.ipynb** : Data pre-processing 
 
-Training.ipynb : training dataset 
+**Training.ipynb** : training dataset 
 
 # Resources 
 
