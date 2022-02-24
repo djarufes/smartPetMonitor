@@ -8,6 +8,16 @@
 
 **Training.ipynb** : training dataset 
 
+
+
+## Metadata class
+
+1 - Drinking 
+
+2 - Eating 
+
+3 - Misc
+
 # Resources 
 
 https://www.tensorflow.org/tutorials/audio/transfer_learning_audio 
