@@ -30,4 +30,7 @@ https://developer.apple.com/videos/play/wwdc2019/425/
 
 Live: https://www.youtube.com/watch?v=8-vl9bNY9aI 
 
+https://github.com/ShawnHymel/tflite-speech-recognition 
+
 Librosa Loading : https://www.youtube.com/watch?v=CtiBW8T80SY 
+
