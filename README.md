@@ -1,11 +1,3 @@
-## Audio Model 
-
-**<u>Status</u>:** 
-
-- Encountered some compatibility challenges. Some up-to-date libraries are not compatible with some other core libraries. Will manually downgrade these libraries to fix compatibility issues. 
-- Aiming to develop an audio model for bird sound classification for practice. Sufficient data is provided by tensorflow guides, so it shouldn't be a big challenge. After we get familiar with tensorflow and other libraries, we will start developing our model from collected dataset. 
-- More audio dataset collection is in progress. 
-
 
 
 All libraries currently being used: 
