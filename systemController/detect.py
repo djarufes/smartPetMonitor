@@ -258,10 +258,10 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                         width_foodBowl = boxes[1][1][0]-boxes[1][0][0]
                         height_foodBowl = boxes[1][1][1]-boxes[1][0][1]
                         area_food_box = width_foodBowl * height_foodBowl
-                        xleft_water = max(x1,boxes[1][0][0])
-                        xright_water = min(x2, boxes[1][1][0])
-                        ytop_water = max(y1, boxes[1][0][1])
-                        ybottom_water = min(y2, boxes[1][1][1])
+                        xleft_food = max(x1,boxes[1][0][0])
+                        xright_food = min(x2, boxes[1][1][0])
+                        ytop_food = max(y1, boxes[1][0][1])
+                        ybottom_food = min(y2, boxes[1][1][1])
                         #print(xleft, xright, ytop, ybottom)
                         if (xright_food<xleft_food) or (ybottom_food<ytop_food):
                           area_inter_food = 0
