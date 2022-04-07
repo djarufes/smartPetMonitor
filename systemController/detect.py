@@ -126,6 +126,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
     cv2. destroyAllWindows()
 
     # frame.shape[0] = height and frame.shape[1] = width
+    '''
     normBoxes = ((
         (boxes[0][0][0] / frame.shape[1], boxes[0][0][1] / frame.shape[0]), 
         (boxes[0][1][0] / frame.shape[1], boxes[0][1][1] / frame.shape[0])),
@@ -135,6 +136,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
     normBoxes = ((((boxes[0][0][0] + boxes[0][1][0]) / (2 * frame.shape[1])), ((boxes[0][0][1] + boxes[0][1][1]) / (2 * frame.shape[0])), (boxes[0][1][0] - boxes[0][0][0]) / frame.shape[1], (boxes[0][1][1] - boxes[0][0][1]) / frame.shape[0]),
                  (((boxes[1][0][0] + boxes[1][1][0]) / (2 * frame.shape[1])), ((boxes[1][0][1] + boxes[1][1][1]) / (2 * frame.shape[0])), (boxes[1][1][0] - boxes[1][0][0]) / frame.shape[1], (boxes[1][1][1] - boxes[1][0][1]) / frame.shape[0]))
     print(normBoxes)
+    '''
     #inserted code ends here.
 
     # Half
@@ -284,8 +286,8 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
 
                     if save_img or save_crop or view_img:  # Add bbox to image
                         c = int(cls)  # integer class
-                        label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                        annotator.box_label(xyxy, label, color=colors(c, True))
+                        label = None if hide_labels else (names[0] if hide_conf else f'{names[0]} {conf:.2f}')
+                        annotator.box_label(xyxy, label, color=colors(0, True))
                         if save_crop:
                             save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
 
@@ -304,14 +306,16 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                 im0 = cv2.rectangle(im0, (boxes[1][0][0]-1,boxes[1][0][1]-35), (boxes[1][0][0]+130,boxes[1][0][1]) , (255,0,0), -1)
                 im0 = cv2.putText(im0, 'Food Bowl', (boxes[1][0][0]+5,boxes[1][0][1]-10), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 255, 255), 2, cv2.LINE_AA)
                 im0 = cv2.rectangle(im0, start_point, end_point, color, thickness)
-                if (iou_water or iou_food):
-                    font = cv2.FONT_HERSHEY_SIMPLEX
-                    org = (950, 120)
-                    fontScale = 3
-                    thickness = 3
-                    color = (0, 255, 255)
-                    if(iou_water > iou_food): im0 = cv2.putText(im0, 'Drinking', org, font, fontScale, color, thickness, cv2.LINE_AA)
-                    elif(iou_food > iou_water): im0 = cv2.putText(im0, 'Eating', org, font, fontScale, color, thickness, cv2.LINE_AA)
+                font = cv2.FONT_HERSHEY_SIMPLEX
+                org = (950, 120)
+                fontScale = 2
+                thickness = 2
+                color = (0, 255, 255)
+                if (iou_water or iou_food): im0 = cv2.putText(im0, 'Audio Model: On', org, font, fontScale, color, thickness, cv2.LINE_AA)
+                else: im0 = cv2.putText(im0, 'Audio Model: OFF', org, font, fontScale, color, thickness, cv2.LINE_AA)
+
+                #if(iou_water > iou_food):  
+                #elif(iou_food > iou_water): im0 = cv2.putText(im0, 'Eating', org, font, fontScale, color, thickness, cv2.LINE_AA)
                 
                 # Activity Index
                 frames = 15
@@ -372,7 +376,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                         ### CSV File Export
                         file_exists = os.path.exists('metaData.csv')
                         header = ['system time', 'timestamp', 'eat_drink', 'activity']
-                        data = [datetime.now(),timestamp, iou, activity]
+                        data = [datetime.now(),timestamp, iou_food+iou_water, activity]
                         timestamp += 0.5
                         with open('metaData.csv', 'a', encoding='UTF8') as f:
                             writer = csv.writer(f)
