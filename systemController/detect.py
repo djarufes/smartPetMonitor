@@ -242,16 +242,30 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                         area_cat_box = (x2-x1)*(y2-y1)
                         area_water_box = normBoxes[0][2]*normBoxes[0][3]
                         #intersection rectangle:
-                        xleft = max(x1,normBoxes[0][0] - (0.5 * normBoxes[0][2]))
-                        xright = min(x2, normBoxes[0][1] + (0.5 * normBoxes[0][2]))
-                        ytop = max(y1, normBoxes[0][0] - (0.5 * normBoxes[0][3]))
-                        ybottom = min(y2, normBoxes[0][1] + (0.5 * normBoxes[0][3]))
+                        xleft_water = max(x1,normBoxes[0][0] - (0.5 * normBoxes[0][2]))
+                        xright_water = min(x2, normBoxes[0][1] + (0.5 * normBoxes[0][2]))
+                        ytop_water = max(y1, normBoxes[0][0] - (0.5 * normBoxes[0][3]))
+                        ybottom_water = min(y2, normBoxes[0][1] + (0.5 * normBoxes[0][3]))
                         #print(xleft, xright, ytop, ybottom)
-                        if (xright<xleft) or (ybottom<ytop):
-                          area_inter = 0
+                        if (xright_water<xleft_water) or (ybottom_water<ytop_water):
+                          area_inter_water = 0
                         else:
-                          area_inter = (xright-xleft)*(ybottom-ytop)
-                        iou = area_inter/(area_cat_box+area_water_box-area_inter)
+                          area_inter_water = (xright_water-xleft_water)*(ybottom_water-ytop_water)
+                        iou_water = area_inter_water/(area_cat_box+area_water_box-area_inter_water)
+
+
+                        area_food_box = normBoxes[1][2]*normBoxes[1][3]
+                        xleft_food = max(x1,normBoxes[1][0] - (0.5 * normBoxes[1][2]))
+                        xright_food = min(x2, normBoxes[1][1] + (0.5 * normBoxes[1][2]))
+                        ytop_food = max(y1, normBoxes[1][0] - (0.5 * normBoxes[1][3]))
+                        ybottom_food = min(y2, normBoxes[1][1] + (0.5 * normBoxes[1][3]))
+                        #print(xleft, xright, ytop, ybottom)
+                        if (xright_food<xleft_food) or (ybottom_food<ytop_food):
+                          area_inter_food = 0
+                        else:
+                          area_inter_food = (xright_food-xleft_food)*(ybottom_food-ytop_food)
+                        iou_food = area_inter_food/(area_cat_box+area_food_box-area_inter_food)
+
 
                         #print(('%g ' * len(line)).rstrip() % line + '\n')'''
 
@@ -259,7 +273,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                         #eucledian = ((bounding_box_info[1][0] - normBoxCenter[0])**2 + (bounding_box_info[1][1] - normBoxCenter[1])**2)**(1/2)
                         #print(eucledian)
                         ### code ends here:
-                        print(iou)
+                        print(iou_water, iou_food)
 
                         with open(txt_path + '.txt', 'a') as f:
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
