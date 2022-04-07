@@ -233,19 +233,20 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
 
                         # iou calculations:
                         # bounding box info for the cat:
-                        x1 = bounding_box_info[1][0]-(0.5*(bounding_box_info[1][2]))
-                        x2 = bounding_box_info[1][0]+(0.5*(bounding_box_info[1][2]))
-                        y1 = bounding_box_info[1][1]-(0.5*(bounding_box_info[1][3]))
-                        y2 = bounding_box_info[1][1]+(0.5*(bounding_box_info[1][3]))
+                        x1 = unNorm_xyxy[0][0]
+                        x2 = unNorm_xyxy[0][2]
+                        y1 = unNorm_xyxy[0][1]
+                        y2 = unNorm_xyxy[0][3]
                         #print(x1,y1)
                         #print(x2,y2)
                         area_cat_box = (x2-x1)*(y2-y1)
-                        area_water_box = normBoxes[0][2]*normBoxes[0][3]
-                        #intersection rectangle:
-                        xleft_water = max(x1,normBoxes[0][0] - (0.5 * normBoxes[0][2]))
-                        xright_water = min(x2, normBoxes[0][1] + (0.5 * normBoxes[0][2]))
-                        ytop_water = max(y1, normBoxes[0][0] - (0.5 * normBoxes[0][3]))
-                        ybottom_water = min(y2, normBoxes[0][1] + (0.5 * normBoxes[0][3]))
+                        width_waterBowl = boxes[0][1][0]-boxes[0][0][0]
+                        height_waterBowl = boxes[0][1][1]-boxes[0][0][1]
+                        area_water_box = width_waterBowl * height_waterBowl
+                        xleft_water = max(x1,boxes[0][0][0])
+                        xright_water = min(x2, boxes[0][1][0]))
+                        ytop_water = max(y1, boxes[0][0][1])
+                        ybottom_water = min(y2, boxes[0][1][1])
                         #print(xleft, xright, ytop, ybottom)
                         if (xright_water<xleft_water) or (ybottom_water<ytop_water):
                           area_inter_water = 0
@@ -254,11 +255,13 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                         iou_water = area_inter_water/(area_cat_box+area_water_box-area_inter_water)
 
 
-                        area_food_box = normBoxes[1][2]*normBoxes[1][3]
-                        xleft_food = max(x1,normBoxes[1][0] - (0.5 * normBoxes[1][2]))
-                        xright_food = min(x2, normBoxes[1][1] + (0.5 * normBoxes[1][2]))
-                        ytop_food = max(y1, normBoxes[1][0] - (0.5 * normBoxes[1][3]))
-                        ybottom_food = min(y2, normBoxes[1][1] + (0.5 * normBoxes[1][3]))
+                        width_foodBowl = boxes[1][1][0]-boxes[1][0][0]
+                        height_foodBowl = boxes[1][1][1]-boxes[1][0][1]
+                        area_food_box = width_foodBowl * height_foodBowl
+                        xleft_water = max(x1,boxes[1][0][0])
+                        xright_water = min(x2, boxes[1][1][0]))
+                        ytop_water = max(y1, boxes[1][0][1])
+                        ybottom_water = min(y2, boxes[1][1][1])
                         #print(xleft, xright, ytop, ybottom)
                         if (xright_food<xleft_food) or (ybottom_food<ytop_food):
                           area_inter_food = 0
