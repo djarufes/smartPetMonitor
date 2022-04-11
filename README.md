@@ -1,26 +1,31 @@
-
-
-All libraries currently being used: 
-
-```python
-import tensorflow as tf
-import tflite_model_maker as mm
-from tflite_model_maker import audio_classifier
-import os
-
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-import itertools
-import glob
-import random
-
-from IPython.display import Audio, Image
-from scipy.io import wavfile
-```
+`python detect.py --source IMG_7420_trim.mp4 --weights last_100.pt --img 416 --conf 0.4 --save-txt --view-img` 
 
 
 
-## Video Model 
+Todo until Final Demo: 
 
+- [ ] Overlay 
+  
+  - [ ] Add `Video Model : ON` text 
+  
+  - [ ] Shift to upper left corner 
+  
+  - [ ] Font change from 2 -> 1 
+
+- [ ] Demo Videos 
+  
+  - [ ] Drinking Videos 
+  
+  - [ ] Eating Video
+  
+  - [ ] Activity Video 
+
+- [ ] Demo Prep 
+  
+  - [ ] Video Model CSV 
+  
+  - [ ] Audio Model CSV 
+  
+  - [ ] Progress Bar UI 
+  
+  - [ ] Graph UI 
