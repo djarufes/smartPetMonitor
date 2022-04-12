@@ -1,16 +1,14 @@
 `python detect.py --source IMG_7420_trim.mp4 --weights last_100.pt --img 416 --conf 0.4 --save-txt --view-img` 
 
-
-
 Todo until Final Demo: 
 
 - [ ] Overlay 
   
-  - [ ] Add `Video Model : ON` text 
+  - [x] Add `Video Model : ON` text 
   
-  - [ ] Shift to upper left corner 
+  - [x] Shift to upper left corner 
   
-  - [ ] Font change from 2 -> 1 
+  - [x] Font change from 2 -> 1 
 
 - [ ] Demo Videos 
   
@@ -22,11 +20,11 @@ Todo until Final Demo:
 
 - [ ] Demo Prep 
   
-  - [ ] Video Model CSV 
+  - [x] Video Model CSV 
   
-  - [ ] Audio Model CSV 
+  - [x] Audio Model CSV 
   
-  - [ ] Progress Bar UI 
+  - [x] Progress Bar UI 
   
   - [ ] Graph UI 
 
