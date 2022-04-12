@@ -118,7 +118,8 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
             im0 = cv2.putText(frame_cpy, 'Select Food Bowl', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 2, cv2.LINE_AA)
             print('Food Bowl Selection')
         # Select ROI
-        r = cv2.selectROI(frame_cpy, fromCenter=False, showCrosshair=False) # returns (x, y, w, h)
+        cv2.namedWindow("User Selection", cv2.WINDOW_NORMAL)
+        r = cv2.selectROI("User Selection", frame_cpy, fromCenter=False, showCrosshair=False) # returns (x, y, w, h)
         # Bounded image
         boxes.append(((int(r[0]),int(r[1])), (int(r[0]+r[2]),int(r[1]+r[3]))))
         print(boxes[-1])
@@ -158,7 +159,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
     # Run inference
     model.warmup(imgsz=(1 if pt else bs, 3, *imgsz), half=half)  # warmup
     dt, seen = [0.0, 0.0, 0.0], 0
-    prev_seen, prev_start_point, prev_end_point = 0, None, None
+    prev_seen, prev_write, prev_start_point, prev_end_point = 0, 0, None, None
     activity = None
     timestamp = 0
     for path, im, im0s, vid_cap, s in dataset:
@@ -223,7 +224,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                 for *xyxy, conf, cls in reversed(det):
                     if save_txt:  # Write to file
                         unNorm_xyxy = torch.tensor(xyxy).view(1, 4) # Pixel values of cat bounding box upper corner x & y, lower corner x & y
-                        print(unNorm_xyxy)
+                        #print(unNorm_xyxy)
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
 
@@ -293,6 +294,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
 
             # Stream results
             im0 = annotator.result()
+            w, h = im0.shape[1], im0.shape[0]
             if view_img:
                 start_point = boxes[0][0]
                 end_point = boxes[0][1]
@@ -306,11 +308,16 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                 im0 = cv2.rectangle(im0, (boxes[1][0][0]-1,boxes[1][0][1]-35), (boxes[1][0][0]+130,boxes[1][0][1]) , (255,0,0), -1)
                 im0 = cv2.putText(im0, 'Food Bowl', (boxes[1][0][0]+5,boxes[1][0][1]-10), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 255, 255), 2, cv2.LINE_AA)
                 im0 = cv2.rectangle(im0, start_point, end_point, color, thickness)
+
+                # System Features
+                im0 = cv2.rectangle(im0, (0,0), (300, 130) , (0,0,0), -1)
                 font = cv2.FONT_HERSHEY_SIMPLEX
-                org = (950, 120)
-                fontScale = 2
+                fontScale = 1
                 thickness = 2
-                color = (0, 255, 255)
+                color = (0, 255, 255) 
+                org = (10, 30)
+                im0 = cv2.putText(im0, 'Video Model: On', org, font, fontScale, color, thickness, cv2.LINE_AA)
+                org = (10, 70)
                 if (iou_water or iou_food): im0 = cv2.putText(im0, 'Audio Model: On', org, font, fontScale, color, thickness, cv2.LINE_AA)
                 else: im0 = cv2.putText(im0, 'Audio Model: OFF', org, font, fontScale, color, thickness, cv2.LINE_AA)
 
@@ -319,7 +326,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                 
                 # Activity Index
                 frames = 15
-                if unNorm_xyxy != None:
+                if unNorm_xyxy != [[0,0,0,0]]:
                     color = (255, 255, 0)
                     perc = 0.10
                     boundingBox_center_x = (int(unNorm_xyxy[0][0]) + int(unNorm_xyxy[0][2])) / 2
@@ -360,7 +367,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                             iou = 0
                             if area_combined > 0:
                                 iou = area_overlap / area_combined
-                                print('----------', area_a, area_b, area_combined, area_overlap, iou)
+                                #print('----------', area_a, area_b, area_combined, area_overlap, iou)
                             
                             font = cv2.FONT_HERSHEY_SIMPLEX
                             org = (950, 220)
@@ -373,17 +380,6 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                         prev_end_point = end_point
                         prev_seen = seen
 
-                        ### CSV File Export
-                        file_exists = os.path.exists('metaData.csv')
-                        header = ['system time', 'timestamp', 'eat_drink', 'activity']
-                        data = [datetime.now(),timestamp, iou_food+iou_water, activity]
-                        timestamp += 0.5
-                        with open('metaData.csv', 'a', encoding='UTF8') as f:
-                            writer = csv.writer(f)
-                            # If file does not exists, write the header
-                            if file_exists == False: writer.writerow(header)
-                            writer.writerow(data)
-
                     elif prev_start_point != prev_end_point:
                         color = (255, 0, 255)
                         im0 = cv2.rectangle(im0, prev_start_point, prev_end_point, color, thickness)
@@ -392,12 +388,33 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
                     im0 = cv2.rectangle(im0, start_point, end_point, color, thickness)
 
                     font = cv2.FONT_HERSHEY_SIMPLEX
-                    org = (950, 220)
-                    fontScale = 2
+                    org = (10, 110)
+                    fontScale = 1
                     if activity == 0: im0 = cv2.putText(im0, 'Activity: Low', org, font, fontScale, (0, 255, 255), 2, cv2.LINE_AA)
                     elif activity == 1: im0 = cv2.putText(im0, 'Activity: High', org, font, fontScale, (0, 255, 255), 2, cv2.LINE_AA)
+                
+                if unNorm_xyxy == [[0,0,0,0]] or activity == None:
+                    im0 = cv2.putText(im0, 'Activity: --', (10, 110), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2, cv2.LINE_AA)
+                    activity = None
+                
+                if seen - prev_write > frames:
+                    ### CSV File Export
+                    file_exists = os.path.exists('metaData.csv')
+                    header = ['system time', 'timestamp', 'eat_drink', 'activity']
+                    print(iou_food+iou_water)
+                    data = [datetime.now(),timestamp, float(iou_food+iou_water), activity]
+                    timestamp += 0.5
+                    with open('metaData.csv', 'a', encoding='UTF8') as f:
+                        writer = csv.writer(f)
+                        # If file does not exists, write the header
+                        if file_exists == False: writer.writerow(header)
+                        writer.writerow(data)
+                    prev_write = seen
+                
+                unNorm_xyxy = [[0,0,0,0]]
 
-                cv2.imshow(str(p), im0)
+                #cv2.namedWindow(str(p), cv2.WINDOW_NORMAL)
+                #cv2.imshow(str(p), im0)
                 cv2.waitKey(1)  # 1 millisecond
 
             # Save results (image with detections)
