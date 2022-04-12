@@ -1,4 +1,6 @@
-% System Controller 
+''' 
+System Controller - Divide audio into chunks and analyze each chunks behavior/duration
+''' 
 from audio_main import features_extractor 
 from audio_test import audio_test, features_extractor 
 from moviepy.editor import VideoFileClip
@@ -12,17 +14,19 @@ import sys
 path = '/datasets'
 video_filename = "test_1.wav"
 
-
+audio_chunks = []
+seconds_per_chunk = 1 
 
 def main():
     audio_filename = convert_video_to_audio(video_filename)
+    audio_chunks.append(multiple_split(audio_filename, seconds_per_chunk))
 
-
-
-
-
-
-
+    for index, chunk in enumerate(audio_chunks):
+        data = []
+        behavior = audio_test(chunk)
+        data = [index, behavior]
+        write_to_csv(data)
+    
 
 def get_duration(self):
     return self.audio.duration_seconds
@@ -53,7 +57,7 @@ def convert_video_to_audio(video_file, output_ext="wav"):
     audio_filename = path + "{filename}.{output_ext}"
     return audio_filename 
 
-def write_to_csv(data):
+def write_to_csv(data): #Header: time(seconds), classified behavior 
     with open('countries.csv', 'w', encoding='UTF8', newline='') as f:
         writer = csv.writer(f)
         writer.writerows(data)
