@@ -27,7 +27,6 @@ def main():
         data = [index, behavior]
         write_to_csv(data)
     
-
 def get_duration(self):
     return self.audio.duration_seconds
 
@@ -49,8 +48,6 @@ def multiple_split(self, sec_per_split):
             print('All splited successfully')
 
 def convert_video_to_audio(video_file, output_ext="wav"):
-    """Converts video to audio using MoviePy library
-    that uses `ffmpeg` under the hood"""
     filename, ext = os.path.splitext(video_file)
     clip = VideoFileClip(video_file)
     clip.audio.write_audiofile(f"{filename}.{output_ext}")
