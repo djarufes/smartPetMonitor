@@ -29,3 +29,11 @@ Todo until Final Demo:
   - [ ] Graph UI 
 
 
+
+Task By Thursday Meeting: 
+
+- Bolu: Begin working on slides 
+
+- Sean: Graph / Progress bar UI 
+
+- David, Prateek: Activity index 
