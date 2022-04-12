@@ -58,7 +58,7 @@ def convert_video_to_audio(video_file, output_ext="wav"):
     return audio_filename 
 
 def write_to_csv(data): #Header: time(seconds), classified behavior 
-    with open('countries.csv', 'w', encoding='UTF8', newline='') as f:
+    with open('audio_data.csv', 'w', encoding='UTF8', newline='') as f:
         writer = csv.writer(f)
         writer.writerows(data)
 
