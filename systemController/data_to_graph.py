@@ -22,11 +22,14 @@ plt.xlabel("Timestamp")
 plt.ylabel("Time ")
 plt.title("Time spent eating over time")
 plt.xticks(ticks=time)
-plt.locator_params(axis='x', nbins = len(time)/2)
+plt.locator_params(axis='x', nbins = 10)
 plt.show()
 
 # Drinking Behavior Graph
 # Amount vs time
 # Group 5 data, add total drinking seconds.
 # Rate => 0.4mL water consumed per second
+
+data_x = []
+data_y = []
 
