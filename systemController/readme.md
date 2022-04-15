@@ -1,3 +1,25 @@
+# Graphs
+
+- [x] Behavior event graphs for eating / drinking 
+
+- [ ] Quantity of water consumed graph 
+
+- [ ] Time spent eating graph 
+
+- [ ] Long term significant divergence graph 
+
+- [ ] Statistics overlay: 
+  
+  - [ ] Total vol. water consumed 
+  
+  - [ ] Total time spent eating 
+  
+  - [ ] Current behavior: /drinking/eating/-- 
+
+
+
+
+
 # Video Data Parameters
 
 - Timestamp: 
@@ -19,8 +41,6 @@
   - Activity index recognized in the timeframe. 
   
   - 1 - Low, 50 - Medium, 100 - High
-  
-  
 
 # Audio Data Parameters
 
