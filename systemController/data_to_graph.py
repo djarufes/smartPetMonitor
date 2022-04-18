@@ -91,7 +91,6 @@ plt.show()
 # plt.locator_params(axis='x', nbins = 10)
 # plt.show()
 
-
 figure_title = 'Food Consumption Tracking (Each bin = ' + str(bin_size) + ' seconds)'
 fig = plt.figure("Food Consumption Tracking", figsize=(12,3))
 ax1 = fig.add_subplot()
@@ -110,21 +109,16 @@ plt.show()
 ##########################################
 # Activity Graph
 
-
-
-
-
 fig = plt.figure("Activity Index over time", figsize=(12,3))
 ax1 = fig.add_subplot()
-ax1.bar(data_x, data_y) #
-ax1.set_ylabel('Instant consumption, mL')
+ax1.bar(time, activity) #
+ax1.set_ylabel('Instant Activity')
 ax2 = ax1.twinx()
-ax2.plot(data_x, daily, color='red', linestyle='--')
+ax2.plot(time, activity_index, color='red', linestyle='--')
 ax2.tick_params(axis='y', labelcolor='red')
-ax2.set_ylabel('Total consumption, mL',color='red')
+ax2.set_ylabel('Activity Index',color='red')
 plt.xticks(ticks=data_x)
 plt.locator_params(axis='x', nbins = 10)
 plt.title(figure_title)
-plt.legend(['Total amount consumed', 'Instant consumption amount'])
+plt.legend(['Activity Index'])
 plt.show()
-
