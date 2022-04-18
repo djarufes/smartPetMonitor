@@ -16,17 +16,17 @@ drinking = audio_data['drink'].to_list()
 activity = audio_data['activity'].to_list()
 activity_index = audio_data['index'].to_list()
 
-#######################################
-#Eating Behavior Graph
+# #######################################
+# Eating Behavior Graph
 # Time vs Time - On Off graph
-plt.figure("Eating", figsize=(12,3))
-plt.plot(time,eating, drinking)
-plt.ylabel("Behavior ('1' if eating/drinking)")
-plt.legend(["Eating","Drinking"])
-plt.title("Record of behavior over time")
-plt.xticks(ticks=time)
-plt.locator_params(axis='x', nbins = 10)
-plt.show()
+# plt.figure("Eating", figsize=(12,3))
+# plt.plot(time,eating, drinking)
+# plt.ylabel("Behavior ('1' if eating/drinking)")
+# plt.legend(["Eating","Drinking"])
+# plt.title("Record of behavior over time")
+# plt.xticks(ticks=time)
+# plt.locator_params(axis='x', nbins = 10)
+# plt.show()
 
 #######################################
 # Drinking Behavior Graph
@@ -63,24 +63,24 @@ for index, value in enumerate(time):
 
 print(data_x, "\n", data_y, daily)
 
-##########################################
-# Water consumption volume graph
+# ##########################################
+# # Water consumption volume graph
 
-figure_title = 'Water Consumption Tracking (Each bin = ' + str(bin_size) + ' seconds)'
-fig = plt.figure("Water Consumption Tracking", figsize=(12,3))
-ax1 = fig.add_subplot()
-ax1.bar(data_x, data_y)
-ax1.set_ylabel('Instant consumption, mL')
-ax2 = ax1.twinx()
-ax2.plot(data_x, daily, color='red', linestyle='--')
-ax2.tick_params(axis='y', labelcolor='red')
-ax2.set_ylabel('Total consumption, mL',color='red')
-plt.xticks(ticks=data_x)
-plt.locator_params(axis='x', nbins = 10)
-plt.title(figure_title)
-plt.legend(['Total amount consumed', 'Instant consumption amount'])
-plt.show()
-
+# figure_title = 'Water Consumption Tracking (Each bin = ' + str(bin_size) + ' seconds)'
+# fig = plt.figure("Water Consumption Tracking", figsize=(12,3))
+# ax1 = fig.add_subplot()
+# ax1.bar(data_x, data_y)
+# ax1.set_ylabel('Instant consumption, mL')
+# ax2 = ax1.twinx()
+# ax2.plot(data_x, daily, color='red', linestyle='--')
+# ax2.tick_params(axis='y', labelcolor='red')
+# ax2.set_ylabel('Total consumption, mL',color='red')
+# plt.xticks(ticks=data_x)
+# plt.locator_params(axis='x', nbins = 10)
+# plt.title(figure_title)
+# plt.legend(['Total amount consumed', 'Instant consumption amount'])
+# plt.show()
+#
 # plt.figure("Water Consumption Tracking", figsize=(12,3))
 # plt.plot(data_x,daily, color='orange')
 # plt.bar(data_x, data_y, color='blue')
@@ -90,35 +90,52 @@ plt.show()
 # plt.xticks(ticks=data_x)
 # plt.locator_params(axis='x', nbins = 10)
 # plt.show()
-
-figure_title = 'Food Consumption Tracking (Each bin = ' + str(bin_size) + ' seconds)'
-fig = plt.figure("Food Consumption Tracking", figsize=(12,3))
-ax1 = fig.add_subplot()
-ax1.bar(data_x, data_y_food)
-ax1.set_ylabel('Instant time spent, sec')
-ax2 = ax1.twinx()
-ax2.plot(data_x, daily_food, color='red', linestyle='--')
-ax2.tick_params(axis='y', labelcolor='red')
-ax2.set_ylabel('Total Time spent eating, sec',color='red')
-plt.xticks(ticks=data_x)
-plt.locator_params(axis='x', nbins = 10)
-plt.title(figure_title)
-plt.legend(['Total amount consumed', 'Instant consumption amount'])
-plt.show()
+#
+# figure_title = 'Food Consumption Tracking (Each bin = ' + str(bin_size) + ' seconds)'
+# fig = plt.figure("Food Consumption Tracking", figsize=(12,3))
+# ax1 = fig.add_subplot()
+# ax1.bar(data_x, data_y_food)
+# ax1.set_ylabel('Instant time spent, sec')
+# ax2 = ax1.twinx()
+# ax2.plot(data_x, daily_food, color='red', linestyle='--')
+# ax2.tick_params(axis='y', labelcolor='red')
+# ax2.set_ylabel('Total Time spent eating, sec',color='red')
+# plt.xticks(ticks=data_x)
+# plt.locator_params(axis='x', nbins = 10)
+# plt.title(figure_title)
+# plt.legend(['Total amount consumed', 'Instant consumption amount'])
+# plt.show()
 
 ##########################################
 # Activity Graph
 
-fig = plt.figure("Activity Index over time", figsize=(12,3))
+
+activity_index_list = []
+activity_instant = 0
+
+for index, value in enumerate(time):
+    if activity[index] == 1:
+        if activity_instant < 100:
+            activity_instant = activity_instant + 10
+    else:
+        if activity_instant > 0:
+            activity_instant = activity_instant - 1
+    print(activity_instant)
+    activity_index_list.append(activity_instant)
+
+
+fig = plt.figure("Activity Index over time", figsize=(16,4))
 ax1 = fig.add_subplot()
 ax1.bar(time, activity) #
+ax1.set_xlabel("Timestamps (hh:mm:ss)")
 ax1.set_ylabel('Instant Activity')
 ax2 = ax1.twinx()
-ax2.plot(time, activity_index, color='red', linestyle='--')
+ax2.plot(time, activity_index_list, color='red', linestyle='--')
 ax2.tick_params(axis='y', labelcolor='red')
 ax2.set_ylabel('Activity Index',color='red')
+plt.xlabel("Timestamp")
 plt.xticks(ticks=data_x)
 plt.locator_params(axis='x', nbins = 10)
-plt.title(figure_title)
+# plt.title(figure_title)
 plt.legend(['Activity Index'])
 plt.show()
