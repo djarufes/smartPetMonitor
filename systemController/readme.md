@@ -2,7 +2,7 @@
 
 - [x] Behavior event graphs for eating / drinking 
 
-- [ ] Quantity of water consumed graph 
+- [x] Quantity of water consumed graph 
 
 - [ ] Time spent eating graph 
 
@@ -18,7 +18,13 @@
 
 
 
+Video 1: Drinking and eating 
 
+    Not the optimum camera placement, but still operates well. Relatively more challenging to recognize cat so misses a couple frames. But there are no issue in data collection because we have data correction feature (and microphone holds data for +- 5 seconds anyways)
+
+Video 2: Eating and activity 
+
+Video 3: Long term activity 
 
 # Video Data Parameters
 
