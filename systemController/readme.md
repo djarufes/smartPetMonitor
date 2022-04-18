@@ -4,7 +4,7 @@
 
 - [x] Quantity of water consumed graph 
 
-- [ ] Time spent eating graph 
+- [x] Time spent eating graph 
 
 - [ ] Long term significant divergence graph 
 
@@ -15,8 +15,6 @@
   - [ ] Total time spent eating 
   
   - [ ] Current behavior: /drinking/eating/-- 
-
-
 
 Video 1: Drinking and eating 
 
