@@ -17,10 +17,11 @@ drinking = audio_data['drink'].to_list()
 
 # Eating Behavior Graph
 # Time vs Time - On Off graph
-plt.plot(time,eating)
-plt.xlabel("Timestamp")
-plt.ylabel("Eating (1 if eating, 0 if not)")
-plt.title("Eating behavior over time")
+plt.figure("Eating", figsize=(12,3))
+plt.plot(time,eating, drinking)
+plt.ylabel("Behavior ('1' if eating/drinking)")
+plt.legend(["Eating","Drinking"])
+plt.title("Record of behavior over time")
 plt.xticks(ticks=time)
 plt.locator_params(axis='x', nbins = 10)
 plt.show()
@@ -32,4 +33,5 @@ plt.show()
 
 data_x = []
 data_y = []
+
 
