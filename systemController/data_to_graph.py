@@ -82,15 +82,15 @@ plt.title(figure_title)
 plt.legend(['Total amount consumed', 'Instant consumption amount'])
 plt.show()
 
-plt.figure("Water Consumption Tracking", figsize=(12,3))
-plt.plot(data_x,daily, color='orange')
-plt.bar(data_x, data_y, color='blue')
-plt.ylabel("Amount of water consumed, mL")
-plt.title("Amount of water consumed over time")
-plt.legend(['Total amount consumed', 'Instant consumption amount'])
-plt.xticks(ticks=data_x)
-plt.locator_params(axis='x', nbins = 10)
-plt.show()
+# plt.figure("Water Consumption Tracking", figsize=(12,3))
+# plt.plot(data_x,daily, color='orange')
+# plt.bar(data_x, data_y, color='blue')
+# plt.ylabel("Amount of water consumed, mL")
+# plt.title("Amount of water consumed over time")
+# plt.legend(['Total amount consumed', 'Instant consumption amount'])
+# plt.xticks(ticks=data_x)
+# plt.locator_params(axis='x', nbins = 10)
+# plt.show()
 
 figure_title = 'Food Consumption Tracking (Each bin = ' + str(bin_size) + ' seconds)'
 fig = plt.figure("Food Consumption Tracking", figsize=(12,3))
@@ -121,10 +121,10 @@ for index, value in enumerate(time):
     else:
         if activity_instant > 0:
             activity_instant = activity_instant - 1
-    print(activity_instant)
+    # print(activity_instant)
     activity_index_list.append(activity_instant)
 
-
+figure_title = 'Activity Monitoring'
 fig = plt.figure("Activity Index over time", figsize=(16,4))
 ax1 = fig.add_subplot()
 ax1.bar(time, activity) #
@@ -137,7 +137,7 @@ ax2.set_ylabel('Activity Index',color='red')
 plt.xlabel("Timestamp")
 plt.xticks(ticks=data_x)
 plt.locator_params(axis='x', nbins = 10)
-# plt.title(figure_title)
+plt.title(figure_title)
 plt.yticks(ticks=[0,50,85], labels=['Low','Medium', 'High'])
 plt.legend(['Activity Index'])
 plt.show()
