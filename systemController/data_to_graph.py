@@ -5,16 +5,17 @@ System Controller - Data visualization
 import pandas as pd
 import matplotlib.pyplot as plt
 
-audio_data = pd.read_csv('metaData.csv')
+audio_data = pd.read_csv('metadata2.csv')
 audio_data = audio_data.dropna(how='all')
 audio_data = audio_data.dropna(axis='columns',how='all')
 # print(audio_data)
+# timestamp	seconds	eat	drink	activity	x100	index
 
 time = audio_data['timestamp'].to_list()
 eating = audio_data['eat'].to_list()
 drinking = audio_data['drink'].to_list()
 activity = audio_data['activity'].to_list()
-activity_index = audio_data['index'].to_list()
+
 
 # #######################################
 # Eating Behavior Graph
