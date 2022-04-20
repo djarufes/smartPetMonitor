@@ -5,7 +5,7 @@ System Controller - Data visualization
 import pandas as pd
 import matplotlib.pyplot as plt
 
-audio_data = pd.read_csv('metadata2.csv')
+audio_data = pd.read_csv('metadata3.csv')
 audio_data = audio_data.dropna(how='all')
 audio_data = audio_data.dropna(axis='columns',how='all')
 # print(audio_data)
@@ -20,6 +20,7 @@ activity = audio_data['activity'].to_list()
 # #######################################
 # Eating Behavior Graph
 # Time vs Time - On Off graph
+
 plt.figure("Eating", figsize=(12,3))
 plt.plot(time,eating, drinking)
 plt.ylabel("Behavior")
@@ -118,7 +119,7 @@ activity_instant = 0
 for index, value in enumerate(time):
     if activity[index] == 1:
         if activity_instant < 100:
-            activity_instant = activity_instant + 10
+            activity_instant = activity_instant + 4
     else:
         if activity_instant > 0:
             activity_instant = activity_instant - 1
