@@ -1,4 +1,4 @@
-![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/spm.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/spm.png)
 ![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide2.PNG)
 ![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide4.PNG)
 ![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide6.PNG)
