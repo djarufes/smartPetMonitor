@@ -1,39 +1,12 @@
-`python detect.py --source IMG_7420_trim.mp4 --weights last_100.pt --img 416 --conf 0.4 --save-txt --view-img` 
-
-Todo until Final Demo: 
-
-- [ ] Overlay 
-  
-  - [x] Add `Video Model : ON` text 
-  
-  - [x] Shift to upper left corner 
-  
-  - [x] Font change from 2 -> 1 
-
-- [ ] Demo Videos 
-  
-  - [ ] Drinking Videos 
-  
-  - [ ] Eating Video
-  
-  - [ ] Activity Video 
-
-- [ ] Demo Prep 
-  
-  - [x] Video Model CSV 
-  
-  - [x] Audio Model CSV 
-  
-  - [x] Progress Bar UI 
-  
-  - [ ] Graph UI 
-
-
-
-Task By Thursday Meeting: 
-
-- Bolu: Begin working on slides 
-
-- Sean: Graph / Progress bar UI 
-
-- David, Prateek: Activity index 
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/spm.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide2.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide4.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide6.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide8.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide16.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide17.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide27.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide28.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide29.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide30.PNG)
+![](https://github.com/djarufes/smartPetMonitor/blob/main/figures/Slide34.PNG)
