@@ -1,9 +1,108 @@
-# Software code segments used 
+# Snippets of core algorithm developed
+
 Please refer to the github repository for complete codes. 
 
-## User Food and water bowl Selector
-```python
 
+
+## Audio segmentation for duration analysis
+
+```python
+def main():
+    audio_filename = convert_video_to_audio(video_filename)
+    audio_chunks.append(multiple_split(audio_filename, seconds_per_chunk))
+
+    for index, chunk in enumerate(audio_chunks):
+        data = []
+        behavior = audio_test(chunk)
+        data = [index, behavior]
+        write_to_csv(data)
+    
+def get_duration(self):
+    return self.audio.duration_seconds
+
+def single_split(self, from_sec, to_sec, split_filename):
+    # t1 = from_min * 60 * 1000
+    # t2 = to_min * 60 * 1000
+    t1 = from_sec * 1000
+    t2 = to_sec * 1000
+    split_audio = self.audio[t1:t2]
+    split_audio.export(self.folder + '\\' + split_filename, format="wav")
+    
+def multiple_split(self, sec_per_split):
+    total_mins = math.ceil(self.get_duration() / 60)
+    for i in range(0, total_mins, sec_per_split):
+        split_fn = str(i) + '_' + self.filename
+        self.single_split(i, i+sec_per_split, split_fn)
+        print(str(i) + ' Done')
+        if i == total_mins - sec_per_split:
+            print('All splited successfully')
+
+def convert_video_to_audio(video_file, output_ext="wav"):
+    filename, ext = os.path.splitext(video_file)
+    clip = VideoFileClip(video_file)
+    clip.audio.write_audiofile(f"{filename}.{output_ext}")
+    audio_filename = path + "{filename}.{output_ext}"
+    return audio_filename 
+
+def write_to_csv(data): #Header: time(seconds), classified behavior 
+    with open('audio_data.csv', 'w', encoding='UTF8', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerows(data)
+
+if __name__ == "__main__":
+    main()
+```
+
+## Drinking / Eating Behavior analysis
+
+* Requires trained audio ML model 
+
+```python
+def audio_analysis(filename): 
+    start = datetime.now()
+    model.fit(X_train, y_train, batch_size=num_batch_size, epochs=num_epochs, validation_data=(X_test, y_test), callbacks=[checkpointer], verbose=1)
+
+    #File to be analyzed
+    filename='datasets/'+testfile
+    print("File to be analyzed by the model: "+filename,"\n")
+
+    #Feeding the audio data into the model
+    audio, sample_rate = librosa.load(filename, res_type='kaiser_fast') 
+    mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=40)
+    mfccs_scaled_features = np.mean(mfccs_features.T,axis=0)
+    librosa_audio_data,librosa_sample_rate=librosa.load(filename)
+    plt.figure(figsize=(12, 4))
+    plt.plot(librosa_audio_data)
+
+    print("Extracted spectral feature array: \n")
+    print(mfccs_scaled_features)
+
+    mfccs_scaled_features=mfccs_scaled_features.reshape(1,-1)
+    predicted_label=(model.predict(mfccs_scaled_features) > 0.5).astype("int32")
+    print("\nModel outcome Label: ", predicted_label)
+
+    #Interpreting the analyzed data from model 
+    if predicted_label[0][0] == 1: 
+        final_behavior = "Drinking"
+    elif predicted_label[0][0] == 0: 
+        final_behavior = "Eating"
+    return final_behavior 
+
+def features_extractor(file):
+    audio, sample_rate = librosa.load(file_name, res_type='kaiser_fast') 
+    mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=40)
+    mfccs_scaled_features = np.mean(mfccs_features.T,axis=0)
+    
+    return mfccs_scaled_features 
+
+
+```
+
+
+
+## User Food and water bowl Selector
+
+```python
 # Code inserted here:
     # user selection for food and water bowl:
     boxes = []
@@ -33,6 +132,7 @@ Please refer to the github repository for complete codes.
 ```
 
 ## Activity Index Calculations
+
 ```python
 # Activity Index
                 frames = 15
@@ -78,7 +178,7 @@ Please refer to the github repository for complete codes.
                             if area_combined > 0:
                                 iou = area_overlap / area_combined
                                 #print('----------', area_a, area_b, area_combined, area_overlap, iou)
-                            
+
                             font = cv2.FONT_HERSHEY_SIMPLEX
                             org = (950, 220)
                             fontScale = 2
@@ -102,11 +202,11 @@ Please refer to the github repository for complete codes.
                     fontScale = 1
                     if activity == 0: im0 = cv2.putText(im0, 'Activity: Low', org, font, fontScale, (0, 255, 255), 2, cv2.LINE_AA)
                     elif activity == 1: im0 = cv2.putText(im0, 'Activity: High', org, font, fontScale, (0, 255, 255), 2, cv2.LINE_AA)
-                
+
                 if unNorm_xyxy == [[0,0,0,0]] or activity == None:
                     im0 = cv2.putText(im0, 'Activity: --', (10, 110), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2, cv2.LINE_AA)
                     activity = None
-                
+
                 if seen - prev_write > frames:
                     ### CSV File Export
                     file_exists = os.path.exists('metaData.csv')
@@ -120,10 +220,10 @@ Please refer to the github repository for complete codes.
                         if file_exists == False: writer.writerow(header)
                         writer.writerow(data)
                     prev_write = seen
-
 ```
 
 ## Water and Food Bowl IOU calculations with respect to the Cat Bounding Box
+
 ```python
  # iou calculations:
                         # bounding box info for the cat:
@@ -162,10 +262,10 @@ Please refer to the github repository for complete codes.
                         else:
                           area_inter_food = (xright_food-xleft_food)*(ybottom_food-ytop_food)
                         iou_food = area_inter_food/(area_cat_box+area_food_box-area_inter_food)
-
 ```
 
 ## Long-Term Divergence Checker
+
 ```python
 import csv
 
@@ -236,7 +336,7 @@ def CurrentData():
         WaterData.append(line[2])
         EatingData.append(line[3])
         ActivityData.append(line[4])
-    
+
     Water, WaterRange = avgWaterConsumed(WaterData)
     Eating, EatingRange = avgEatingTime(EatingData)
     Activity, ActivityRange = avgActivity(ActivityData)
@@ -263,7 +363,7 @@ with open(LongTermFile) as csv_file:
       WaterData.append(line[2])
       EatingData.append(line[3])
       ActivityData.append(line[4])
-  
+
   Water, WaterRange = avgWaterConsumed(WaterData)
   Eating, EatingRange = avgEatingTime(EatingData)
   Activity, ActivityRange = avgActivity(ActivityData)
@@ -299,5 +399,4 @@ with open(LongTermFile) as csv_file:
   print(message1)
   print(message2)
   print(message3)
-
 ```
